@@ -22,30 +22,13 @@
 
 WIDTH = 640
 HEIGHT = 360
-SCALE = 1
-
-TILE_SIZE = 16
+SCALE = 1.5
 
 function love.conf(t)
-	t.window.title = "sweeat heart"
-	t.window.width = WIDTH
-	t.window.height = HEIGHT
-	t.window.vsync = false
+	t.window.title = "Uber Flash"
+	t.window.width = WIDTH * SCALE
+	t.window.height = HEIGHT * SCALE
+	t.window.vsync = true
 	t.window.resizable = true
 end
 
-function sign(x)
-	return x == 0 and 0 or (x > 0 and 1 or -1)
-end
-
-function random_dir()
-	return math.random() < 0.5 and -1 or 1
-end
-
-function rand_bool()
-	return math.random() < 0.5
-end
-
-function rand_float(lower, greater)
-    return lower + math.random()  * (greater - lower);
-end
