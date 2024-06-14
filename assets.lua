@@ -9,6 +9,11 @@ function assets.load()
   love.graphics.setDefaultFilter("nearest", "nearest")
   love.graphics.setLineStyle("rough")
 
+  assets.belle_neutral = Sheet("assets/neutral.png")
+  assets.belle_right = Sheet("assets/right.png")
+  assets.belle_left = Sheet("assets/left.png")
+  assets.belle_bad = Sheet("assets/bad.png")
+
   assets.enemies = Sheet("assets/enemies.png", 32, 32)
   assets.blood = Sheet("assets/blood.png", 20, 10)
   assets.player_car = Sheet("assets/car.png")

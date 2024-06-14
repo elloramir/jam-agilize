@@ -11,8 +11,8 @@ function Blood:new(x, y)
     self:set_order(ORDER_PLAYER - 0.3)
     self.y_sort = true
     self.frame = math.random(1, #self.image.quads)
-    self.scale_x = 0.8
-    self.scale_y = 0.5
+    self.scale_x = 0.9
+    self.scale_y = 0.7
 end
 
 function Blood:update(dt)

@@ -28,6 +28,7 @@ MAX_AUDIO_STACK = 10
 
 ORDER_ENEMY = 1
 ORDER_PLAYER = 2
+ORDER_UI = 10
 
 function love.conf(t)
 	t.window.title = "Uber Flash"

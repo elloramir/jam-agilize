@@ -7,6 +7,8 @@ function level.load()
 	level.entities = {}
 	level.player = level.add_entity("player", 100, 100)
 
+	level.add_entity("hud")
+
 	for i = 1, 20 do
 		local x = math.random(0, WIDTH)
 		local y = math.random(0, HEIGHT)

@@ -105,7 +105,11 @@ end
 function Player:run_over_ped(ped)
   if not ped.has_died then
     local smp = assets.sfx_body_hit:play()
-    if smp then smp:setPitch(1 - math.random() * 0.3) end
+    if smp then
+      local strn = self:spd_strn()
+      smp:setVolume(strn)
+      smp:setPitch(1 - math.random() * 0.3)
+    end
     -- kill this motherfucker
     ped:kill()
     -- nerf speed
