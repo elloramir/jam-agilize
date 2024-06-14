@@ -8,14 +8,20 @@ function level.load()
 	level.player = level.add_entity("player", 100, 100)
 
 	level.add_entity("hud")
+	level.add_entity("casette")
 
 	for i = 1, 20 do
-		local x = math.random(0, WIDTH)
-		local y = math.random(0, HEIGHT)
-	
+		-- place random enemies and obstacles
 		if math.random() > 0.7 then
+			local x = math.random(0, WIDTH)
+			local y = math.random(0, HEIGHT)
+
 			level.add_entity("obstacle", x, y)
 		else
+			-- same but outside the screen
+			local x = math.random(-WIDTH, WIDTH*2)
+			local y = math.random(-HEIGHT, HEIGHT*2)
+
 			level.add_entity("enemy", x, y)
 		end
 	end
@@ -31,11 +37,11 @@ function level.add_entity(name, ...)
 end
 
 local function sort_entities(a, b)
-	-- y sort is a property from "Sprite" class
-	-- so consider it a class cast and then check.
-	if a.y_sort and b.y_sort then
-		return (a.y + a.order) < (b.y + b.order)
-	end
+	-- -- y sort is a property from "Sprite" class
+	-- -- so consider it a class cast and then check.
+	-- if a.y_sort and b.y_sort then
+	-- 	return (a.y + a.order) < (b.y + b.order)
+	-- end
 
 	return a.order < b.order
 end

@@ -38,3 +38,10 @@ function love.conf(t)
 	t.window.resizable = true
 end
 
+function approach(v1, v2, t)
+	return v1 > v2 and math.max(v1 - t, v2) or math.min(v1 + t, v2)
+end
+
+function lerp(v1, v2, t)
+	return v1 + (v2 - v1) * t
+end

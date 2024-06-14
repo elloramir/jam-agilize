@@ -24,10 +24,6 @@ function Player:new(x, y)
   self.forced_rotation = 0
 end
 
-local function approach(v1, v2, t)
-  return v1 > v2 and math.max(v1 - t, v2) or math.min(v1 + t, v2)
-end
-
 function Player:update(dt)
   Player.super.update(self, dt)
   

@@ -1,6 +1,8 @@
 -- Copyright 2024 Elloramir.
 -- All rights over the code are reserved.
 
+local flux = require("flux")
+local tick = require("tick")
 local assets = require("assets")
 local level = require("level")
 
@@ -39,11 +41,13 @@ end
 
 function love.update(dt)
 	level.update(dt)
+	flux.update(dt)
+	tick.update(dt)
 end
 
 function love.draw()
 	love.graphics.setCanvas(screen)
-	love.graphics.clear()
+	love.graphics.clear(0, 40/255, 89/255)
 
 	-- draw our game here
 	level.draw()

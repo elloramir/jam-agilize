@@ -14,6 +14,7 @@ function assets.load()
   assets.belle_left = Sheet("assets/left.png")
   assets.belle_bad = Sheet("assets/bad.png")
 
+  assets.casette = Sheet("assets/casette.png")
   assets.enemies = Sheet("assets/enemies.png", 32, 32)
   assets.blood = Sheet("assets/blood.png", 20, 10)
   assets.player_car = Sheet("assets/car.png")
@@ -22,8 +23,6 @@ function assets.load()
   assets.engine_sfx = love.audio.newSource("assets/engine.mp3", "static")
   assets.engine_sfx:setLooping(true)
   assets.music = love.audio.newSource("assets/race_music.mp3", "stream")
-  -- assets.music:play()
-  assets.music:setVolume(0.5)
 
   assets.shader_solid_color = love.graphics.newShader([[
     vec4 effect(vec4 col, Image img, vec2 pos, vec2 screenPos) {
@@ -35,6 +34,12 @@ function assets.load()
   assets.sfx_crash_2 = Sound("assets/crash_2.mp3")
   assets.sfx_crash_3 = Sound("assets/crash_3.mp3")
   assets.sfx_body_hit = Sound("assets/body_hit.mp3")
+  assets.sfx_casette_switch = Sound("assets/casette_switch.mp3")
+
+  assets.font = love.graphics.newImageFont("assets/font.png",
+    " abcdefghijklmnopqrstuvwxyz" ..
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
+    "123456789.,!?-+/():;%&`'*#=[]\"")
 end
 
 return assets

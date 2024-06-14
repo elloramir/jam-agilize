@@ -14,9 +14,9 @@ function Obstacle:new(x, y)
     self.rotation = math.random() * math.pi * 2
 
     -- tint with green
-    self.color[1] = 0
-    self.color[2] = 0.5
-    self.color[3] = 1
+    self.color[1] = 0.2
+    self.color[2] = 1
+    self.color[3] = 0
 end
 
 return Obstacle
