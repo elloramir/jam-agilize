@@ -20,6 +20,7 @@ function Sprite:new(x, y)
 	self.scale_y = 1
 	self.rotation = 0
 	self.color = { 1, 1, 1, 1 }
+	self.blink_timer = 0
 end
 
 function Sprite:set_image(image, speed)
@@ -42,6 +43,16 @@ function Sprite:update(dt)
 			self.frame = (self.frame + 1)
 			self.frame_timer = 0
 		end
+	end
+
+	-- blink
+	if self.blink_timer > 0 then
+		self.solid_color = math.sin(love.timer.getTime() * 20) > 0
+		self.blink_timer = self.blink_timer - dt
+		self.color[4] = 0.8
+	else
+		self.solid_color = false
+		self.color[4] = 1
 	end
 end
 

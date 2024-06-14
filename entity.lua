@@ -30,7 +30,7 @@ end
 function Entity:draw()
 end
 
-function Entity:debug()
+function Entity:debug_draw()
 end
 
 return Entity

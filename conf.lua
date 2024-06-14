@@ -24,7 +24,10 @@ WIDTH = 640
 HEIGHT = 360
 SCALE = 1.5
 
-ORDER_PLAYER = 1
+MAX_AUDIO_STACK = 10
+
+ORDER_ENEMY = 1
+ORDER_PLAYER = 2
 
 function love.conf(t)
 	t.window.title = "Uber Flash"

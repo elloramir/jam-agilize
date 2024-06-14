@@ -3,11 +3,11 @@
 
 local assets = require("assets")
 local level = require("level")
-local Sprite = require("entities.sprite")
-local Player = Sprite:extend()
+local Dude = require("entities.dude")
+local Player = Dude:extend()
 
 function Player:new(x, y)
-  Player.super.new(self, x, y)
+  Player.super.new(self, x, y, 15)
   self:set_order(ORDER_PLAYER)
   self:set_image(assets.player_car)
 
@@ -18,6 +18,10 @@ function Player:new(x, y)
   self.frict = 50
 
   self.trail_timer = 0
+  self.life_still = 5
+  self.lost_control_for = 0
+  self.blink_timer = 0
+  self.forced_rotation = 0
 end
 
 local function approach(v1, v2, t)
@@ -25,15 +29,22 @@ local function approach(v1, v2, t)
 end
 
 function Player:update(dt)
+  Player.super.update(self, dt)
+  
   local dx, dy = 0, 0
 
-  -- axis rotation
-  if love.keyboard.isDown("d") then dx = dx + 1 end
-  if love.keyboard.isDown("a") then dx = dx - 1 end
+  -- lost control
+  if self.lost_control_for <= 0 then
+    -- axis rotation
+    if love.keyboard.isDown("d") then dx = dx + 1 end
+    if love.keyboard.isDown("a") then dx = dx - 1 end
 
-  -- accelerate
-  if love.keyboard.isDown("s") then dy = dy + 1 end
-  if love.keyboard.isDown("w") then dy = dy - 1 end
+    -- accelerate
+    if love.keyboard.isDown("s") then dy = dy + 1 end
+    if love.keyboard.isDown("w") then dy = dy - 1 end
+  else
+    self.lost_control_for = self.lost_control_for - dt
+  end
 
   -- normalize controls
   if dx ~= 0 and dy ~= 0 then
@@ -70,16 +81,65 @@ function Player:update(dt)
   if self.y > HEIGHT then self.y = 0 end
 
   -- engine sound
-  do
-    local strn = self:spd_strn()
-    local volume = strn
-    local mutation = love.math.noise(love.timer.getTime()) * 2 - 1
-    local pitch = math.min(math.max(strn * 1.6 + mutation * 0.5, 0.5), 2)
+  self:engine_sound()
 
-    assets.engine_sfx:play()
-    assets.engine_sfx:setVolume(volume)
-    assets.engine_sfx:setPitch(pitch)
+  -- query enemies around to check collisions
+  self:query_area(self.radius)
+
+  -- rotate car
+  if self.forced_rotation ~= 0 then
+    self.rotation = self.forced_rotation
+    self.forced_rotation = approach(self.forced_rotation, 0, dt*30)
   end
+end
+
+function Player:query_callback(other)
+  if other.is_obstacle then
+    self:play_crash_snd()
+    self:knockback(other.x, other.y, 200)
+  end
+end
+
+function Player:engine_sound()
+  local strn = self:spd_strn()
+  local volume = strn
+  local mutation = love.math.noise(love.timer.getTime()) * 2 - 1
+  local pitch = math.min(math.max(strn * 1.6 + mutation * 0.5, 0.5), 2)
+
+  assets.engine_sfx:play()
+  assets.engine_sfx:setVolume(volume)
+  assets.engine_sfx:setPitch(pitch)
+end
+
+function Player:take_damage(v)
+  self.blink_timer = 0.5
+end
+
+function Player:play_crash_snd()
+  local i = math.random(1, 3)
+  local snd = assets["sfx_crash_"..i]
+  local strn = self:spd_strn()
+  local smp = snd:play()
+
+  if not smp then return end
+
+  smp:setVolume(strn)
+  smp:setPitch(strn * 0.5 + 1)
+end
+
+function Player:knockback(x, y, force)
+  local dx = self.x - x
+  local dy = self.y - y
+  local dist = math.sqrt(dx * dx + dy * dy)
+
+  if dist > 0 then
+    self.spd_x = self.spd_x + dx / dist * force
+    self.spd_y = self.spd_y + dy / dist * force
+  end
+
+  -- make it uncontrollable for a while
+  self.forced_rotation = math.random(-5, 5)
+  self.lost_control_for = 0.5
 end
 
 function Player:spd_strn()
