@@ -47,12 +47,13 @@ function Sprite:update(dt)
 
 	-- blink
 	if self.blink_timer > 0 then
-		self.solid_color = math.sin(love.timer.getTime() * 20) > 0
+		self.solid_color = 1 + math.sin(love.timer.getTime() * 15)*2 > 0
 		self.blink_timer = self.blink_timer - dt
-		self.color[4] = 0.8
-	else
-		self.solid_color = false
+		self.reset_blink = true
+		self.color[4] = 0.85
+	elseif self.reset_blink then
 		self.color[4] = 1
+		self.solid_color = false
 	end
 end
 

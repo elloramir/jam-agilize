@@ -10,6 +10,7 @@ function assets.load()
   love.graphics.setLineStyle("rough")
 
   assets.enemies = Sheet("assets/enemies.png", 32, 32)
+  assets.blood = Sheet("assets/blood.png", 20, 10)
   assets.player_car = Sheet("assets/car.png")
   assets.trail = Sheet("assets/trail.png")
 
@@ -28,6 +29,7 @@ function assets.load()
   assets.sfx_crash_1 = Sound("assets/crash_1.mp3")
   assets.sfx_crash_2 = Sound("assets/crash_2.mp3")
   assets.sfx_crash_3 = Sound("assets/crash_3.mp3")
+  assets.sfx_body_hit = Sound("assets/body_hit.mp3")
 end
 
 return assets

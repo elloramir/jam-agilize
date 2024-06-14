@@ -97,6 +97,22 @@ function Player:query_callback(other)
   if other.is_obstacle then
     self:play_crash_snd()
     self:knockback(other.x, other.y, 200)
+  elseif other.is_enemy then
+    self:run_over_ped(other)
+  end
+end
+
+function Player:run_over_ped(ped)
+  if not ped.has_died then
+    local smp = assets.sfx_body_hit:play()
+    if smp then smp:setPitch(1 - math.random() * 0.3) end
+    -- kill this motherfucker
+    ped:kill()
+    -- nerf speed
+    self.spd_x = self.spd_x * 0.8
+    self.spd_y = self.spd_y * 0.8
+    -- visualy explain that you lost something doing it
+    self.blink_timer = 0.25
   end
 end
 

@@ -29,10 +29,10 @@ function level.add_entity(name, ...)
 end
 
 local function sort_entities(a, b)
-	-- y sort is a property from "Dude" class
+	-- y sort is a property from "Sprite" class
 	-- so consider it a class cast and then check.
 	if a.y_sort and b.y_sort then
-		return a.y < b.y
+		return (a.y + a.order) < (b.y + b.order)
 	end
 
 	return a.order < b.order
