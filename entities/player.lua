@@ -16,12 +16,17 @@ function Player:new(x, y)
   self.max_spd = 300
   self.accel = 500
   self.frict = 50
+  self.fire_rate = 1
+
+  self.life_still = 5
+  self.max_life = 5
 
   self.trail_timer = 0
-  self.life_still = 5
   self.lost_control_for = 0
   self.blink_timer = 0
   self.forced_rotation = 0
+  self.last_msg_time = 0
+  self.last_shot_time = 0
 end
 
 function Player:update(dt)
@@ -87,23 +92,81 @@ function Player:update(dt)
     self.rotation = self.forced_rotation
     self.forced_rotation = approach(self.forced_rotation, 0, dt*30)
   end
+
+  -- choose a random enemy to shoot
+  self:shoot_random_enemy()
 end
 
 function Player:query_callback(other)
   if other.is_obstacle then
     self:play_crash_snd()
     self:knockback(other.x, other.y, 200)
+    self:make_lost_control()
+    self:spawn_ouch_msg("ouch!")
   elseif other.is_enemy then
     self:run_over_ped(other)
   end
 end
 
+function Player:shoot_random_enemy()
+  if love.timer.getTime() - self.last_shot_time < self.fire_rate then return end
+
+  for _, en in ipairs(level.entities) do
+    if en.is_enemy and not en.has_died then
+      local dx = en.x - self.x
+      local dy = en.y - self.y
+      local dist = math.sqrt(dx * dx + dy * dy)
+
+      if dist < 200 then
+        level.add_entity("bullet", self.x, self.y, en.x, en.y)
+        self:play_shoot_snd()
+        self.last_shot_time = love.timer.getTime()
+
+        if self.spd_x == 0 and self.spd_y == 0 then
+          self:knockback(en.x, en.y, 100)
+        end
+        
+        break
+      end
+    end
+  end
+end
+
+function Player:play_shoot_snd()
+  local snd = math.random() > 0.5 and assets.sfx_shoot_1 or assets.sfx_shoot_2
+  local smp = snd:play()
+  if smp then
+    smp:setPitch(rand_float(0.7, 0.9))
+  end
+end
+
+function Player:spawn_ouch_msg(text)
+   if love.timer.getTime() - self.last_msg_time < 0.25 then return end
+   
+    self.last_msg_time = love.timer.getTime()
+    level.add_entity("indicator", self.x, self.y, text)
+end
+
+function Player:gamve_over()
+  for _, en in ipairs(level.entities) do
+    en.enabled = false
+  end
+
+  assets.engine_sfx:stop()
+  assets.sfx_gameover:play()
+  level.add_entity("gameover")
+end
+
 function Player:run_over_ped(ped)
   if not ped.has_died then
+    -- check if the player is still alive
+    self.life_still = self.life_still - 1
+    if self.life_still <= 0 then
+      self:gamve_over()
+    end
+
     local smp = assets.sfx_body_hit:play()
     if smp then
-      local strn = self:spd_strn()
-      smp:setVolume(strn)
       smp:setPitch(1 - math.random() * 0.3)
     end
     -- kill this motherfucker
@@ -143,16 +206,7 @@ function Player:play_crash_snd()
   smp:setPitch(strn * 0.5 + 1)
 end
 
-function Player:knockback(x, y, force)
-  local dx = self.x - x
-  local dy = self.y - y
-  local dist = math.sqrt(dx * dx + dy * dy)
-
-  if dist > 0 then
-    self.spd_x = self.spd_x + dx / dist * force
-    self.spd_y = self.spd_y + dy / dist * force
-  end
-
+function Player:make_lost_control()
   -- make it uncontrollable for a while
   self.forced_rotation = math.random(-5, 5)
   self.lost_control_for = 0.5

@@ -6,6 +6,8 @@ local Entity = Object:extend()
 
 function Entity:new(order)
 	self.active = true
+	self.enabled = true
+	self.gen_id = 0
 	self:gen_order_seed()
 	self:set_order(order or 0)
 end

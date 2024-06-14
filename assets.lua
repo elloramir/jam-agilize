@@ -9,11 +9,14 @@ function assets.load()
   love.graphics.setDefaultFilter("nearest", "nearest")
   love.graphics.setLineStyle("rough")
 
+  assets.belle_head = Sheet("assets/head.png")
   assets.belle_neutral = Sheet("assets/neutral.png")
   assets.belle_right = Sheet("assets/right.png")
   assets.belle_left = Sheet("assets/left.png")
   assets.belle_bad = Sheet("assets/bad.png")
 
+  assets.lifebar = Sheet("assets/lifebar.png")
+  assets.beam = Sheet("assets/beam.png")
   assets.casette = Sheet("assets/casette.png")
   assets.enemies = Sheet("assets/enemies.png", 32, 32)
   assets.blood = Sheet("assets/blood.png", 20, 10)
@@ -35,6 +38,9 @@ function assets.load()
   assets.sfx_crash_3 = Sound("assets/crash_3.mp3")
   assets.sfx_body_hit = Sound("assets/body_hit.mp3")
   assets.sfx_casette_switch = Sound("assets/casette_switch.mp3")
+  assets.sfx_shoot_1 = Sound("assets/shoot.mp3")
+  assets.sfx_shoot_2 = Sound("assets/shoot_2.mp3")
+  assets.sfx_gameover = Sound("assets/gameover.mp3")
 
   assets.font = love.graphics.newImageFont("assets/font.png",
     " abcdefghijklmnopqrstuvwxyz" ..

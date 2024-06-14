@@ -15,7 +15,27 @@ function Dude:new(x, y, radius)
     self.spd_y = 0
 end
 
+function Dude:knockback(x, y, force)
+    local dx = self.x - x
+    local dy = self.y - y
+    local dist = math.sqrt(dx * dx + dy * dy)
+
+    if dist > 0 then
+        self.spd_x = self.spd_x + dx / dist * force
+        self.spd_y = self.spd_y + dy / dist * force
+    end
+end
+
 function Dude.query_callback(other)
+end
+
+function Dude:overlaps(other)
+    local dx = self.x - other.x
+    local dy = self.y - other.y
+    local distance = math.sqrt(dx*dx + dy*dy)
+    local overlap = self.radius + other.radius
+
+    return distance < overlap
 end
 
 function Dude:query_area(radius)
@@ -24,11 +44,7 @@ function Dude:query_area(radius)
     local entities = level.entities
     for _, en in ipairs(entities) do
         if en.is_dude and en ~= self then
-            local dx, dy = en.x - x, en.y - y
-            local dist = dx * dx + dy * dy
-            local rad = en.radius + radius
-
-            if dist < rad * rad then
+            if self:overlaps(en) then
                 self:query_callback(en)
             end
         end

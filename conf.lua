@@ -45,3 +45,7 @@ end
 function lerp(v1, v2, t)
 	return v1 + (v2 - v1) * t
 end
+
+function rand_float(min, max)
+	return min + love.math.random() * (max - min)
+end
