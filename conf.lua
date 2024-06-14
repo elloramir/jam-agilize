@@ -24,11 +24,13 @@ WIDTH = 640
 HEIGHT = 360
 SCALE = 1.5
 
+ORDER_PLAYER = 1
+
 function love.conf(t)
 	t.window.title = "Uber Flash"
 	t.window.width = WIDTH * SCALE
 	t.window.height = HEIGHT * SCALE
-	t.window.vsync = true
+	t.window.vsync = false
 	t.window.resizable = true
 end
 

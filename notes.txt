@@ -1,0 +1,7 @@
+# things left to do in the game
+- shoot autmatically
+- spawn enemies
+- 3 different kind of enemies
+- HUD with belle on it
+- sfxs
+- retry action (press any button to retry)

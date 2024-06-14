@@ -22,10 +22,6 @@ local function sort_entities(a, b)
 end
 
 function level.update(dt)
-	if math.random() > 0.7 then
-		table.sort(level.entities, sort_entities)
-	end
-
 	-- loop entities in reverse order so we can remove them
 	-- without indexing issues
 	for i = #level.entities, 1, -1 do
@@ -36,6 +32,8 @@ function level.update(dt)
 			table.remove(level.entities, i)
 		end
 	end
+
+	table.sort(level.entities, sort_entities)
 end
 
 function level.draw()

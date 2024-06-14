@@ -45,7 +45,7 @@ function Sprite:update(dt)
 	end
 end
 
-function Sprite:draw()
+function Sprite:draw(ox, oy)
 	-- the color should be propagate anyways, even if not visible,
 	-- because it should affect super calls bellow.
 	love.graphics.setColor(self.color)
@@ -60,8 +60,8 @@ function Sprite:draw()
 		love.graphics.setShader(assets.shader_solid_color)
 	end
 
-	local x = self.x + self.offset_x
-	local y = self.y + self.offset_y
+	local x = self.x + self.offset_x + (ox or 0)
+	local y = self.y + self.offset_y + (oy or 0)
 	local scale_x = (self.flip_x and -1 or 1) * self.scale_x
 	local scale_y = (self.flip_y and -1 or 1) * self.scale_y
 
