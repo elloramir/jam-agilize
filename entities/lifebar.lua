@@ -8,6 +8,7 @@ local Lifebar = Entity:extend()
 
 function Lifebar:new()
     Lifebar.super.new(self)
+    self:set_order(ORDER_UI)
 end
 
 function Lifebar:draw()

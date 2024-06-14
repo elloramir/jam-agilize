@@ -13,12 +13,13 @@ end
 
 function Gameover:update(dt)
     if love.keyboard.isDown("r") then
+	    assets.sfx_gameready:play()
         level.load()
     end
 end
 
 local white = {1, 1, 1}
-local blink = {1, 1, 1, 1}
+local blink = {0.7, 1, 1, 1}
 
 function Gameover:draw()
     love.graphics.setColor(0, 0, 0, 0.8)

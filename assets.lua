@@ -41,6 +41,9 @@ function assets.load()
   assets.sfx_shoot_1 = Sound("assets/shoot.mp3")
   assets.sfx_shoot_2 = Sound("assets/shoot_2.mp3")
   assets.sfx_gameover = Sound("assets/gameover.mp3")
+  assets.sfx_gameready = Sound("assets/game_restart.mp3")
+  assets.sfx_pickup = Sound("assets/pickup.mp3")
+  assets.sfx_count_down = Sound("assets/count_down.mp3")
 
   assets.font = love.graphics.newImageFont("assets/font.png",
     " abcdefghijklmnopqrstuvwxyz" ..
