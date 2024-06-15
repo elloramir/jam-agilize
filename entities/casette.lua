@@ -7,7 +7,7 @@ local assets = require("assets")
 local Entity = require("entity")
 local Casette = Entity:extend()
 
-local current_music_index = 0
+local current_music_index = 1
 
 function Casette:new(x, y)
     Casette.super.new(self)
@@ -18,7 +18,7 @@ function Casette:new(x, y)
 end
 
 function Casette:choose_music()
-    current_music_index = (current_music_index + 1) % #assets.music_setlist
+    current_music_index = (current_music_index - 1) % #assets.music_setlist + 1
     local choose = assets.music_setlist[current_music_index]
     
     self.title = choose[1]

@@ -42,17 +42,17 @@ function Card:activate_effect()
 
     if kind.name == "disco" then
     elseif kind.name == "life" then
-        level.player.life = level.player.max_life
+        level.player.life_still = level.player.max_life
     elseif kind.name == "move_spd" then
-        level.player.max_spd = math.floor(level.player.max_spd * 1.15)
+        level.player.max_spd = math.floor(level.player.max_spd * 1.75)
     elseif kind.name == "tank" then
-        level.player.max_life = level.player.max_life + 1
+        level.player.max_life = level.player.max_life + 3
     elseif kind.name == "one_more" then
         level.player.bullets_per_shot = level.player.bullets_per_shot + 1
     elseif kind.name == "fire_rate" then
-        level.player.fire_rate = level.player.fire_rate * 0.8
+        level.player.fire_rate = level.player.fire_rate * 0.75
     elseif kind.name == "damage" then
-        level.player.damage = level.player.damage * 1.5
+        level.player.damage = level.player.damage * 2
     end
 end
 

@@ -6,9 +6,15 @@ local level = {}
 
 level.gen_id = 0
 
-function level.load()
+function level.load(is_menu)
 	level.gen_id = level.gen_id + 1
 	level.entities = {}
+
+	if is_menu then
+		level.add_entity("menu")
+		return
+	end
+
 	level.player = level.add_entity("player", WIDTH/2, HEIGHT/2)
 
 	level.add_entity("timer")

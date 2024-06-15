@@ -32,7 +32,7 @@ function Enemy:new(index, horde)
     self.has_died = false
     self.time_before_destroy = 3
     self.dumb_for_x_seconds = 0
-    self.max_life = 5 * 2^(horde-1)
+    self.max_life = math.floor(5 * 2^(horde-1) * 0.75)
     self.life_still = self.max_life
 
     local sub_horde = math.floor(index/10)

@@ -17,7 +17,7 @@ function Player:new(x, y)
   self.frict = 50
 
   self.bullets_per_shot = 1
-  self.max_spd = 180
+  self.max_spd = 100
   self.fire_rate = 1
   self.life_still = 5
   self.max_life = 5

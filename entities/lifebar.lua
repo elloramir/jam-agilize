@@ -14,8 +14,8 @@ function Lifebar:new()
 end
 
 function Lifebar:draw()
-    local x = 0
-    local y = 0
+    local x = 40
+    local y = HEIGHT - 70
     local percent = level.player.life_still / level.player.max_life
     local tips = math.floor(MAX_TIPS * percent)
 

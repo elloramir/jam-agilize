@@ -26,7 +26,7 @@ function assets.load()
   assets.powerups = {
     -- { name = "disco", sheet = assets.power_disco },
     { name = "life", sheet = assets.power_life, desc = "fill your life bar" },
-    { name = "move_spd", sheet = assets.power_move_spd, desc = "you move faster" },
+    { name = "move_spd", sheet = assets.power_move_spd, desc = "you moves faster" },
     { name = "tank", sheet = assets.power_tank, desc = "increase your max life" },
     { name = "one_more", sheet = assets.power_one_more, desc = "+1 bullet" },
     { name = "fire_rate", sheet = assets.power_fire_rate, desc = "shots faster" },
