@@ -15,6 +15,24 @@ function assets.load()
   assets.belle_left = Sheet("assets/left.png")
   assets.belle_bad = Sheet("assets/bad.png")
 
+  assets.power_disco = Sheet("assets/disco.png")
+  assets.power_life = Sheet("assets/life.png")
+  assets.power_move_spd = Sheet("assets/move_speed.png")
+  assets.power_tank = Sheet("assets/tank.png")
+  assets.power_one_more = Sheet("assets/one_more.png")
+  assets.power_fire_rate = Sheet("assets/fire_rate.png")
+  assets.power_damage = Sheet("assets/damage.png")
+
+  assets.powerups = {
+    { name = "disco", sheet = assets.power_disco },
+    { name = "life", sheet = assets.power_life },
+    { name = "move_spd", sheet = assets.power_move_spd },
+    { name = "tank", sheet = assets.power_tank },
+    { name = "one_more", sheet = assets.power_one_more },
+    { name = "fire_rate", sheet = assets.power_fire_rate },
+    { name = "damage", sheet = assets.power_damage },
+  }
+
   assets.speedometer = Sheet("assets/speedometer.png")
   assets.pointer = Sheet("assets/pointer.png")
   assets.lifebar = Sheet("assets/lifebar.png")
@@ -46,6 +64,8 @@ function assets.load()
   assets.sfx_gameready = Sound("assets/game_restart.mp3")
   assets.sfx_pickup = Sound("assets/pickup.mp3")
   assets.sfx_count_down = Sound("assets/count_down.mp3")
+  assets.sfx_pick_card = Sound("assets/pick_card.mp3")
+  assets.sfx_show_card = Sound("assets/show_card.mp3")
 
   assets.font = love.graphics.newImageFont("assets/font.png",
     " abcdefghijklmnopqrstuvwxyz" ..

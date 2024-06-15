@@ -15,8 +15,8 @@ local screen_y = 0
 -- @global
 function to_screen_space(x, y)
 	return
-		math.floor(x * screen_scale + screen_x),
-		math.floor(y * screen_scale + screen_y)
+		math.floor(x  / screen_scale + screen_x),
+		math.floor(y / screen_scale + screen_y)
 end
 
 -- @global

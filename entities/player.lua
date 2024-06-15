@@ -13,14 +13,15 @@ function Player:new(x, y)
 
   self.spd_x = 0
   self.spd_y = 0
-  self.max_spd = 300
   self.accel = 500
   self.frict = 50
 
-  self.fire_rate = 0.4
+  self.bullets_per_shot = 1
+  self.max_spd = 180
+  self.fire_rate = 1
   self.life_still = 5
   self.max_life = 5
-  self.damage = 10
+  self.damage = 5
 
   self.trail_timer = 0
   self.lost_control_for = 0
@@ -112,8 +113,11 @@ end
 function Player:shoot_random_enemy()
   if love.timer.getTime() - self.last_shot_time < self.fire_rate then return end
 
+  local has_enemies = false
   for _, en in ipairs(level.entities) do
     if en.is_enemy and not en.has_died then
+      has_enemies = true
+
       local dx = en.x - self.x
       local dy = en.y - self.y
       local dist = math.sqrt(dx * dx + dy * dy)
@@ -127,7 +131,7 @@ function Player:shoot_random_enemy()
           self:knockback(en.x, en.y, 100)
         end
         
-        break
+        return
       end
     end
   end

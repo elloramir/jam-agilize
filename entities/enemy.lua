@@ -61,6 +61,10 @@ function Enemy:update(dt)
         self.color[4] = 0
 
         if self.time_before_destroy < 0 then
+            level.horders.total_enemies = level.horders.total_enemies - 1
+            if level.horders.total_enemies == 0 then
+                level.horders:spawn_cards()
+            end
             self:destroy()
         end
     else

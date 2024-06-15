@@ -20,7 +20,7 @@ function Timer:update(dt)
     if self.count_3 < 0 then
         level.player.lost_control_for = 0
 	    level.add_entity("casette")
-	    level.add_entity("hordes")
+	    level.horders = level.add_entity("hordes")
         self:destroy()
     end
 end

@@ -1,6 +1,7 @@
 -- Copyright 2024 Elloramir.
 -- All rights over the code are reserved.
 
+local assets = require("assets")
 local tick = require("tick")
 local level = require("level")
 local Entity = require("entity")
@@ -10,7 +11,6 @@ function Hordes:new()
     Hordes.super.new(self)
 
     self.index = 1
-    self:next_horde()
     self:spawn_cards()
 end
 
@@ -24,27 +24,20 @@ function Hordes:next_horde()
 end
 
 function Hordes:spawn_cards()
+    local chooses = {}
+
     for i = 1, 3 do
-        level.add_entity("card", i, "kind")
+        local choose
+        while true do
+            choose = math.random(1, 5)
+            if not chooses[choose] then
+                chooses[choose] = true
+                break
+            end
+        end
+
+        level.add_entity("card", i, assets.powerups[choose])
     end
-end
-
-function Hordes:update(dt)
-    -- check of end of horde
-    -- if not self.is_preparing_stage then
-    --     local en_count = 0
-
-    --     for _, en in ipairs(level.entities) do
-    --         if en.is_enemy then
-    --             en_count = en_count + 1
-    --         end
-    --     end
-
-    --     if en_count == 0 then
-    --         self.is_preparing_stage = true
-    --         -- self:next_horde()
-    --     end
-    -- end
 end
 
 return Hordes
