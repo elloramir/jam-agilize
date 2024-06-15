@@ -1,6 +1,7 @@
 -- Copyright 2024 Elloramir.
 -- All rights over the code are reserved.
 
+local level = require("level")
 local assets = require("assets")
 local Entity = require("entity")
 local Hud = Entity:extend()
@@ -28,11 +29,18 @@ local function circle_out(x, y, r)
     love.graphics.circle("line", x, y, r)
 end
 
-function Hud:draw()
-    circle_out(15, HEIGHT - 10, 70)
+function Hud:post_draw()
     -- circle_out(100, HEIGHT - 10, 40)
     love.graphics.setColor(1, 1, 1)
+    assets.speedometer:draw(0, HEIGHT, 0, 1)
     self.belle_spr:draw(0, HEIGHT, 0, 1)
+    
+    do
+        local strn = level.player:spd_strn()
+        local angle = (-math.pi/2) + (strn * math.pi)
+
+        assets.pointer:draw(87, HEIGHT - 10, 0.5, 1, angle)
+    end
 end
 
 return Hud

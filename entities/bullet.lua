@@ -6,7 +6,7 @@ local assets = require("assets")
 local Dude = require("entities.dude")
 local Bullet = Dude:extend()
 
-Bullet.max_speed = 500
+Bullet.max_speed = 800
 
 function Bullet:new(from_x, from_y, to_x, to_y)
     Bullet.super.new(self, from_x, from_y, 10)

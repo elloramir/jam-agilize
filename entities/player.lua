@@ -16,10 +16,11 @@ function Player:new(x, y)
   self.max_spd = 300
   self.accel = 500
   self.frict = 50
-  self.fire_rate = 1
 
+  self.fire_rate = 0.4
   self.life_still = 5
   self.max_life = 5
+  self.damage = 10
 
   self.trail_timer = 0
   self.lost_control_for = 0
@@ -165,12 +166,15 @@ function Player:run_over_ped(ped)
       self:gamve_over()
     end
 
+    -- play hit sound
     local smp = assets.sfx_body_hit:play()
     if smp then
       smp:setPitch(1 - math.random() * 0.3)
     end
+
     -- kill this motherfucker
     ped:kill()
+
     -- nerf speed
     self.spd_x = self.spd_x * 0.8
     self.spd_y = self.spd_y * 0.8

@@ -15,8 +15,8 @@ local screen_y = 0
 -- @global
 function to_screen_space(x, y)
 	return
-		math.floor((x - screen_x) / screen_scale / camera.zoom + camera.x),
-		math.floor((y - screen_y) / screen_scale / camera.zoom + camera.y)
+		math.floor(x * screen_scale + screen_x),
+		math.floor(y * screen_scale + screen_y)
 end
 
 -- @global
@@ -51,6 +51,7 @@ function love.draw()
 
 	-- draw our game here
 	level.draw()
+	level.post_draw()
 
 	if dbug then
 		level.debug()

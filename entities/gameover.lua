@@ -14,6 +14,10 @@ end
 function Gameover:update(dt)
     if love.keyboard.isDown("r") then
 	    assets.sfx_gameready:play()
+        -- stop all music
+        for _, music in ipairs(assets.music_setlist) do
+            music[2]:stop()
+        end
         level.load()
     end
 end
@@ -21,7 +25,7 @@ end
 local white = {1, 1, 1}
 local blink = {0.7, 1, 1, 1}
 
-function Gameover:draw()
+function Gameover:post_draw()
     love.graphics.setColor(0, 0, 0, 0.8)
     love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
 

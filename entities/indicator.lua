@@ -22,7 +22,7 @@ function Indicator:update(dt)
     end
 end
 
-function Indicator:draw()
+function Indicator:post_draw()
     local w = assets.font:getWidth(self.text)
     local h = assets.font:getHeight()
 

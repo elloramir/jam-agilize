@@ -7,19 +7,29 @@ local assets = require("assets")
 local Entity = require("entity")
 local Casette = Entity:extend()
 
+local current_music_index = 0
+
 function Casette:new(x, y)
     Casette.super.new(self)
     self:set_order(ORDER_UI)
 
+    self.title = ""
     self:choose_music()
 end
 
 function Casette:choose_music()
+    current_music_index = (current_music_index + 1) % #assets.music_setlist
+    local choose = assets.music_setlist[current_music_index]
+    
+    self.title = choose[1]
+    self.playing = choose[2]
+
     self:casette_animation()
     assets.sfx_casette_switch:play()
-    tick.delay(function()
-        assets.music:play()
-        assets.music:setVolume(0.5)
+    self.will_play = tick.delay(function()
+        self.will_play = nil
+        self.playing:play()
+        self.playing:setVolume(0.5)
     end, 1.3)
 end
 
@@ -29,7 +39,13 @@ function Casette:casette_animation()
         :ease("backout")
 end
 
-function Casette:draw()
+function Casette:update(dt)
+    if not self.playing:isPlaying() and not self.will_play then
+        self:choose_music()
+    end
+end
+
+function Casette:post_draw()
     love.graphics.setFont(assets.font)
 
     do
@@ -49,7 +65,7 @@ function Casette:draw()
 
     do
         local font = love.graphics.getFont()
-        local tw = font:getWidth("Speed For Life")
+        local tw = font:getWidth(self.title)
         local th = font:getHeight()
 
         local x = WIDTH - 25 - assets.casette.width - tw + self.casette_offset
@@ -59,7 +75,7 @@ function Casette:draw()
         local angle = math.sin(self.casette_offset * 0.1) * 0.3
 
         love.graphics.setColor(1, 1, 1)
-        love.graphics.printf("Speed For Life", x, y, tw, "right", angle)
+        love.graphics.printf(self.title, x, y, tw, "right", angle)
     end
 end
 

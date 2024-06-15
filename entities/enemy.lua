@@ -10,14 +10,33 @@ Enemy.is_enemy = true
 Enemy.friction = 100
 Enemy.move_speed = 50
 
-function Enemy:new(x, y)
+local function random_pos_outside_screen()
+    local x, y = 0, 0
+    local side = math.random(1, 4)
+
+    if side == 1 then x = math.random(-100, WIDTH + 100); y = -100
+    elseif side == 2 then x = math.random(-100, WIDTH + 100); y = HEIGHT + 100
+    elseif side == 3 then x = -100; y = math.random(-100, HEIGHT + 100)
+    elseif side == 4 then x = WIDTH + 100; y = math.random(-100, HEIGHT + 100)
+    end
+
+    return x, y
+end
+
+function Enemy:new(index, horde)
+    local x, y = random_pos_outside_screen()
+
     Enemy.super.new(self, x, y, 10)
-    self:set_image(assets.enemies)
+    self:set_image(assets.enemies, 0.1)
     self:set_order(ORDER_PLAYER - 0.1)
     self.has_died = false
     self.time_before_destroy = 3
     self.dumb_for_x_seconds = 0
-    self.life_still = 2
+    self.max_life = 5 * 2^(horde-1)
+    self.life_still = self.max_life
+
+    local sub_horde = math.floor(index/10)
+    self.wait_til_sub_horde = sub_horde * 10 -- 10 seconds between each horde
 end
 
 function Enemy:kill()
@@ -27,6 +46,11 @@ end
 
 function Enemy:update(dt)
     Enemy.super.update(self, dt)
+
+    if self.wait_til_sub_horde > 0 then
+        self.wait_til_sub_horde = self.wait_til_sub_horde - dt
+        return
+    end
 
     -- check for overlaps
     self:query_area(self.radius)
@@ -84,14 +108,31 @@ function Enemy:hit(bullet)
     self:knockback(bullet.x, bullet.y, 100)
     level.add_entity("flash", self.x, self.y)
 
-    -- todo(ellora): compute damage based on status
-    self.life_still = self.life_still - 1
+    self.life_still = self.life_still - level.player.damage
 
     if self.life_still <= 0 then
         self:kill()
     end
 
     level.add_entity("indicator", self.x, self.y, "hit!")
+end
+
+function Enemy:post_draw()
+    if self.has_died then
+        return
+    end
+
+    local x = self.x - 10
+    local y = self.y - 20
+    local percent = self.life_still / self.max_life
+    local width = percent * 20
+
+    -- draw lifebar
+    love.graphics.setColor(1, 0.2, 0.2)
+    love.graphics.rectangle("fill", x, y, width, 4, 3)
+    love.graphics.setColor(0.05, 0.05, 0.05)
+    love.graphics.setLineWidth(3)
+    love.graphics.rectangle("line", x, y, 20, 4, 3)
 end
 
 return Enemy

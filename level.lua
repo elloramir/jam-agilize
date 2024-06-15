@@ -58,6 +58,12 @@ function level.draw()
 	end
 end
 
+function level.post_draw()
+	for _, en in ipairs(level.entities) do
+		if en.active then en:post_draw() end
+	end
+end
+
 function level.debug()
 	for _, en in ipairs(level.entities) do
 		if en.active then en:debug_draw() end

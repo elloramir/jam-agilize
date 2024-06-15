@@ -15,7 +15,10 @@ function assets.load()
   assets.belle_left = Sheet("assets/left.png")
   assets.belle_bad = Sheet("assets/bad.png")
 
+  assets.speedometer = Sheet("assets/speedometer.png")
+  assets.pointer = Sheet("assets/pointer.png")
   assets.lifebar = Sheet("assets/lifebar.png")
+  assets.life_tip = Sheet("assets/life_tip.png")
   assets.beam = Sheet("assets/beam.png")
   assets.casette = Sheet("assets/casette.png")
   assets.enemies = Sheet("assets/enemies.png", 32, 32)
@@ -25,7 +28,6 @@ function assets.load()
 
   assets.engine_sfx = love.audio.newSource("assets/engine.mp3", "static")
   assets.engine_sfx:setLooping(true)
-  assets.music = love.audio.newSource("assets/race_music.mp3", "stream")
 
   assets.shader_solid_color = love.graphics.newShader([[
     vec4 effect(vec4 col, Image img, vec2 pos, vec2 screenPos) {
@@ -49,6 +51,13 @@ function assets.load()
     " abcdefghijklmnopqrstuvwxyz" ..
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
     "123456789.,!?-+/():;%&`'*#=[]\"")
+
+  assets.music_setlist = {
+    { "Speed For Life", love.audio.newSource("assets/race_music.mp3", "stream") },
+    { "The Chase", love.audio.newSource("assets/music_2.ogg", "stream") },
+    { "Beloved Car", love.audio.newSource("assets/music_3.ogg", "stream") },
+    { "Racing Against", love.audio.newSource("assets/music_4.ogg", "stream") },
+  }
 end
 
 return assets

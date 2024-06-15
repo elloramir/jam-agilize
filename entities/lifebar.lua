@@ -6,20 +6,24 @@ local assets = require("assets")
 local Entity = require("entity")
 local Lifebar = Entity:extend()
 
+local MAX_TIPS = 20
+
 function Lifebar:new()
     Lifebar.super.new(self)
     self:set_order(ORDER_UI)
 end
 
 function Lifebar:draw()
+    local x = 0
+    local y = 0
     local percent = level.player.life_still / level.player.max_life
-    local width = assets.lifebar.width * percent - 25
-
-    love.graphics.setColor(0.7, 0.4, 0.4)
-    love.graphics.rectangle("fill", 30, 12, width, 15)
+    local tips = math.floor(MAX_TIPS * percent)
 
     love.graphics.setColor(1, 1, 1)
-    assets.lifebar:draw(10, 20, 0, 0.5)
+    assets.lifebar:draw(x, y)
+    for i = 1, tips do
+        assets.life_tip:draw(assets.life_tip.width*i + x + 4, y + 8)
+    end
 end
 
 return Lifebar
