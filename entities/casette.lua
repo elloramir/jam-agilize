@@ -20,6 +20,7 @@ end
 function Casette:choose_music()
     current_music_index = (current_music_index - 1) % #assets.music_setlist + 1
     local choose = assets.music_setlist[current_music_index]
+    current_music_index = current_music_index + 1
     
     self.title = choose[1]
     self.playing = choose[2]

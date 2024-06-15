@@ -29,7 +29,7 @@ function Hordes:spawn_cards()
     for i = 1, 3 do
         local choose
         while true do
-            choose = math.random(1, 5)
+            choose = math.random(1, #assets.powerups)
             if not chooses[choose] then
                 chooses[choose] = true
                 break

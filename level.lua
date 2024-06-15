@@ -15,6 +15,7 @@ function level.load(is_menu)
 		return
 	end
 
+	level.add_entity("background")
 	level.player = level.add_entity("player", WIDTH/2, HEIGHT/2)
 
 	level.add_entity("timer")

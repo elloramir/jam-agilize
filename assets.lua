@@ -33,6 +33,7 @@ function assets.load()
     { name = "damage", sheet = assets.power_damage, desc = "deal more damage" },
   }
 
+  assets.background = Sheet("assets/background.png")
   assets.speedometer = Sheet("assets/speedometer.png")
   assets.pointer = Sheet("assets/pointer.png")
   assets.lifebar = Sheet("assets/lifebar.png")
@@ -42,6 +43,7 @@ function assets.load()
   assets.enemies = Sheet("assets/enemies.png", 32, 32)
   assets.blood = Sheet("assets/blood.png", 20, 10)
   assets.player_car = Sheet("assets/car.png")
+  assets.taxi = Sheet("assets/taxi.png")
   assets.trail = Sheet("assets/trail.png")
 
   assets.engine_sfx = love.audio.newSource("assets/engine.mp3", "static")
@@ -73,10 +75,10 @@ function assets.load()
     "123456789.,!?-+/():;%&`'*#=[]\"")
 
   assets.music_setlist = {
-    { "Speed For Life", love.audio.newSource("assets/race_music.mp3", "stream") },
-    { "The Chase", love.audio.newSource("assets/music_2.ogg", "stream") },
     { "Beloved Car", love.audio.newSource("assets/music_3.ogg", "stream") },
+    { "The Chase", love.audio.newSource("assets/music_2.ogg", "stream") },
     { "Racing Against", love.audio.newSource("assets/music_4.ogg", "stream") },
+    { "The Night", love.audio.newSource("assets/music_5.mp3", "stream") },
   }
 end
 

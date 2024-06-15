@@ -30,7 +30,7 @@ function Card:new(index, kind)
     self.done_anim = false
 
     tick.delay(function()
-        assets.sfx_show_card:play():setPitch(1 + (index - 1) * 0.1)
+        assets.sfx_show_card:play(0.5):setPitch(1 + (index - 1) * 0.1)
         flux.to(self, 1, {offset = 0}):ease("backout"):oncomplete(function()
             self.done_anim = true
         end)

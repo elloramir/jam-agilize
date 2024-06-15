@@ -50,7 +50,7 @@ function Menu:post_draw()
     -- press any button
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(assets.font)
-    love.graphics.printf("Press any SPACE to start", 0, HEIGHT/2 + wobble, WIDTH, "center")
+    love.graphics.printf("Press SPACE to start", 0, HEIGHT/2 + wobble, WIDTH, "center")
 
     love.graphics.setColor(1, 1, 1, self.opacity)
     love.graphics.printf({
