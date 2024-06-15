@@ -114,7 +114,12 @@ function Card:post_draw()
 
     -- icon
     love.graphics.setColor(1, 1, 1)
-    self.kind.sheet:draw(self.x + CARD_WIDTH/2, self.y + self.offset + CARD_HEIGHT/2, 0.5, 0.5)
+    self.kind.sheet:draw(self.x + CARD_WIDTH/2, self.y + self.offset + CARD_HEIGHT/2 - 40, 0.5, 0.5)
+
+    -- text
+    love.graphics.setFont(assets.font)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf(self.kind.desc, self.x + 10, self.y + self.offset + 80, CARD_WIDTH - 20, "center")
 end
 
 return Card

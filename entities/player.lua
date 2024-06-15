@@ -113,28 +113,29 @@ end
 function Player:shoot_random_enemy()
   if love.timer.getTime() - self.last_shot_time < self.fire_rate then return end
 
-  local has_enemies = false
+  local enemies = {}
+
   for _, en in ipairs(level.entities) do
     if en.is_enemy and not en.has_died then
-      has_enemies = true
-
       local dx = en.x - self.x
       local dy = en.y - self.y
-      local dist = math.sqrt(dx * dx + dy * dy)
+      local distance = math.sqrt(dx*dx + dy*dy)
 
-      if dist < 200 then
-        level.add_entity("bullet", self.x, self.y, en.x, en.y)
-        self:play_shoot_snd()
-        self.last_shot_time = love.timer.getTime()
-
-        if self.spd_x == 0 and self.spd_y == 0 then
-          self:knockback(en.x, en.y, 100)
-        end
-        
-        return
+      if distance < 200 then
+        table.insert(enemies, en)
       end
     end
   end
+
+  for i = 1, self.bullets_per_shot do
+    if #enemies == 0 then return end
+
+    local en = enemies[math.random(1, #enemies)]
+    level.add_entity("bullet", self.x, self.y, en.x, en.y)
+    self:play_shoot_snd()
+  end
+
+  self.last_shot_time = love.timer.getTime()
 end
 
 function Player:play_shoot_snd()

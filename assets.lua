@@ -24,13 +24,13 @@ function assets.load()
   assets.power_damage = Sheet("assets/damage.png")
 
   assets.powerups = {
-    { name = "disco", sheet = assets.power_disco },
-    { name = "life", sheet = assets.power_life },
-    { name = "move_spd", sheet = assets.power_move_spd },
-    { name = "tank", sheet = assets.power_tank },
-    { name = "one_more", sheet = assets.power_one_more },
-    { name = "fire_rate", sheet = assets.power_fire_rate },
-    { name = "damage", sheet = assets.power_damage },
+    -- { name = "disco", sheet = assets.power_disco },
+    { name = "life", sheet = assets.power_life, desc = "fill your life bar" },
+    { name = "move_spd", sheet = assets.power_move_spd, desc = "you move faster" },
+    { name = "tank", sheet = assets.power_tank, desc = "increase your max life" },
+    { name = "one_more", sheet = assets.power_one_more, desc = "+1 bullet" },
+    { name = "fire_rate", sheet = assets.power_fire_rate, desc = "shots faster" },
+    { name = "damage", sheet = assets.power_damage, desc = "deal more damage" },
   }
 
   assets.speedometer = Sheet("assets/speedometer.png")
